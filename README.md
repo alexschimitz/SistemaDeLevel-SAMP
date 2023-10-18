@@ -13,4 +13,3 @@
 
 
 * sscanf2 - Y_Less
-* Processador de comandos com CMD. Exemplos: ZCMD, I-ZCMD, Pawn.CMD
