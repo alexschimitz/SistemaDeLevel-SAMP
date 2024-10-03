@@ -10,8 +10,7 @@
 #define COR_ERRO 			0xDF3A01FF
 
 //Variaveis do jogador
-enum pInfo
-{
+enum pInfo{
 	pLevel,
 	pEXP
 };
@@ -30,13 +29,13 @@ UpPlayerLevel(playerid){
     new ProxXP = XpNecessario(playerid, level);
     if(exp >= ProxXP){
         PlayerInfo[playerid][pLevel]++;
-	SetPlayerScore(playerid, PlayerInfo[playerid][pLevel]);
+		SetPlayerScore(playerid, PlayerInfo[playerid][pLevel]);
         UpPlayerLevel(playerid);
         // Dar recompensas ou executar ações específicas ao atingir um novo nível
         SendClientMessage(playerid, -1, "Voce ganhou +1 level. Level atual: %d XP: %d", PlayerInfo[playerid][pLevel], PlayerInfo[playerid][pEXP]);
-	if(GetPlayerScore(playerid) == 10){
-		//Alguma coisa aqui ao jogador conquistar algum level. Substitua 10 pelo level.
-	}
+		if(GetPlayerScore(playerid) == 10){
+			//Alguma coisa aqui ao jogador conquistar algum level. Substitua 10 pelo level.
+		}
     }
 }
 //Dar Experiencia ao jogador
@@ -51,18 +50,16 @@ DarXP(playerid, quant){
 //Verificar o proximo XP a ser atingido com base no level do jogador.
 XpNecessario(playerid, level){
 	new XpNecessario = 0;
-	for (new i = 1; i <= level; i++)
-    	{ 
-        if (level >= 1 && level <= 21) 
-        {
-             new LevelAte21[] = { 800, 1300, 1700, 2300, 3400, 3000, 3500, 3800, 4200, 4500, 4900, 5300, 5500, 6000, 6200, 6600, 6900, 7200, 7600, 7800, 8200 };
-             XpNecessario += LevelAte21[level - 1];
-        }
-        else if (22 <= i && i <= 97)
-            XpNecessario += 7521 + ((i - 22) * 300);
-        else if (i >= 98)
-            XpNecessario += 28500 + ((i - 98) * 50);
-    }
+	for (new i = 1; i <= level; i++){ 
+		if (level >= 1 && level <= 21) {
+			 new LevelAte21[] = { 800, 1300, 1700, 2300, 3400, 3000, 3500, 3800, 4200, 4500, 4900, 5300, 5500, 6000, 6200, 6600, 6900, 7200, 7600, 7800, 8200 };
+			 XpNecessario += LevelAte21[level - 1];
+		}
+		else if (22 <= i && i <= 97)
+			XpNecessario += 7521 + ((i - 22) * 300);
+		else if (i >= 98)
+			XpNecessario += 28500 + ((i - 98) * 50);
+	}	
 
     new LevelStr[35]; format(LevelStr, sizeof(LevelStr), "%d / %d", PlayerInfo[playerid][pEXP], XpNecessario);
 	PlayerTextDrawSetString(playerid, LevelTDP[playerid][9], LevelStr);
@@ -80,15 +77,13 @@ XpNecessario(playerid, level){
 }
 
 //Comandos de testes
-CMD:darxp(playerid, params[])
-{
+CMD:darxp(playerid, params[]){
     new xp;
     if(sscanf(params, "d", xp)) return SendClientMessage(playerid, -1, "/darxp [xp]");
     DarXP(playerid, xp);
     return 1;
 }
-CMD:resetarlevel(playerid)
-{
+CMD:resetarlevel(playerid){
     PlayerInfo[playerid][pEXP] = 0;
     PlayerInfo[playerid][pLevel] = 0;
 }
