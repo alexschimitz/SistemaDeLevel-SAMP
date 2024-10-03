@@ -24,40 +24,35 @@ new PlayerText:LevelTDP[MAX_PLAYERS][11];
 //--Funções
 
 //Quando o jogador upar de level
-UpPlayerLevel(playerid)
-{
+UpPlayerLevel(playerid){
     new level = PlayerInfo[playerid][pLevel];
     new exp = PlayerInfo[playerid][pEXP];
     new ProxXP = XpNecessario(playerid, level);
-    if (exp >= ProxXP)
-    {
+    if(exp >= ProxXP){
         PlayerInfo[playerid][pLevel]++;
-		SetPlayerScore(playerid, PlayerInfo[playerid][pLevel]);
+	SetPlayerScore(playerid, PlayerInfo[playerid][pLevel]);
         UpPlayerLevel(playerid);
         // Dar recompensas ou executar ações específicas ao atingir um novo nível
         SendClientMessage(playerid, -1, "Voce ganhou +1 level. Level atual: %d XP: %d", PlayerInfo[playerid][pLevel], PlayerInfo[playerid][pEXP]);
-		if(GetPlayerScore(playerid) == 10)
-		{
-			//Alguma coisa aqui ao jogador conquistar algum level. Substitua 10 pelo level.
-        }
+	if(GetPlayerScore(playerid) == 10){
+		//Alguma coisa aqui ao jogador conquistar algum level. Substitua 10 pelo level.
+	}
     }
 }
 //Dar Experiencia ao jogador
-DarXP(playerid, quant)
-{
-    if(PlayerInfo[playerid][pLevel] >= 8000) return SendClientMessage(playerid, COR_ERRO, "| ERRO | Voce alcancou o level maximo.");
-    PlayerInfo[playerid][pEXP] += quant;
-    new LevelStr[10]; format(LevelStr, sizeof(LevelStr), "+ %d", quant);
+DarXP(playerid, quant){
+	if(PlayerInfo[playerid][pLevel] >= 8000) return SendClientMessage(playerid, COR_ERRO, "| ERRO | Voce alcancou o level maximo.");
+	PlayerInfo[playerid][pEXP] += quant;
+	new LevelStr[10]; format(LevelStr, sizeof(LevelStr), "+ %d", quant);
 	PlayerTextDrawSetString(playerid, LevelTDP[playerid][10], LevelStr);
-    UpPlayerLevel(playerid);
-    return 1;
+	UpPlayerLevel(playerid);
+	return 1;
 }
 //Verificar o proximo XP a ser atingido com base no level do jogador.
-XpNecessario(playerid, level)
-{
-    new XpNecessario = 0;
-    for (new i = 1; i <= level; i++)
-    { 
+XpNecessario(playerid, level){
+	new XpNecessario = 0;
+	for (new i = 1; i <= level; i++)
+    	{ 
         if (level >= 1 && level <= 21) 
         {
              new LevelAte21[] = { 800, 1300, 1700, 2300, 3400, 3000, 3500, 3800, 4200, 4500, 4900, 5300, 5500, 6000, 6200, 6600, 6900, 7200, 7600, 7800, 8200 };
